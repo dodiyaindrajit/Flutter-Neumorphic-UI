@@ -1,25 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:myhomecontroller/constant/color.dart';
 import 'package:myhomecontroller/constant/size.dart';
 import 'package:myhomecontroller/constant/text_style.dart';
+import 'package:myhomecontroller/cubit/counter_cubit.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-class HighLowButton extends StatefulWidget {
+class HighLowButton extends StatelessWidget {
   const HighLowButton({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<HighLowButton> createState() => _HighLowButtonState();
-}
-
-class _HighLowButtonState extends State<HighLowButton> {
-  double heatValue = 21;
-
-  @override
   Widget build(BuildContext context) {
-    print(heatValue);
     return Column(
       children: [
         SizedBox(
@@ -38,7 +31,8 @@ class _HighLowButtonState extends State<HighLowButton> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  circulerProcessWidget(heatValue),
+                  circulerProcessWidget(
+                      context.watch<CounterCubit>().state.toDouble()),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -47,7 +41,8 @@ class _HighLowButtonState extends State<HighLowButton> {
                           provideHapticFeedback: true,
                           minDistance: -2,
                           onPressed: () {
-                            if (heatValue > 16) setState(() => heatValue--);
+                            if (context.read<CounterCubit>().state.toDouble() >
+                                16) context.read<CounterCubit>().decrement();
                           },
                           style: NeumorphicStyle(
                               shape: NeumorphicShape.convex,
@@ -71,7 +66,10 @@ class _HighLowButtonState extends State<HighLowButton> {
                           provideHapticFeedback: true,
                           minDistance: -2,
                           onPressed: () {
-                            if (heatValue < 30) setState(() => heatValue++);
+                            if (context.read<CounterCubit>().state.toDouble() <
+                                30) {
+                              context.read<CounterCubit>().increment();
+                            }
                           },
                           style: NeumorphicStyle(
                               shape: NeumorphicShape.convex,
@@ -158,11 +156,15 @@ class _HighLowButtonState extends State<HighLowButton> {
                     alignment: Alignment.center,
                     width: 70,
                     height: 70,
-                    child: Text(
-                      " ${heatValue.toInt()}°",
-                      style: ConstTextStyle.largeDark.copyWith(
-                        fontSize: 33,
-                      ),
+                    child: BlocBuilder<CounterCubit, int>(
+                      builder: (context, state) {
+                        return Text(
+                          " $state°",
+                          style: ConstTextStyle.largeDark.copyWith(
+                            fontSize: 33,
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),

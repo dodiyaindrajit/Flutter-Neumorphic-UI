@@ -14,10 +14,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  double sideMenuWidth = 100;
+  late double sideMenuWidth;
 
   @override
   Widget build(BuildContext context) {
+    sideMenuWidth = MediaQuery.of(context).size.width * 0.24;
     return Scaffold(
       backgroundColor: ConstColor.background,
       body: Row(
