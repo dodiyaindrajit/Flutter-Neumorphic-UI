@@ -1,10 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:myhomecontroller/constant/color.dart';
+import 'package:myhomecontroller/observer/counter_observer.dart';
 import 'package:myhomecontroller/view/home.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  Bloc.observer = CounterObserver();
+  runApp(const MyApp());
+}
 
-class MyApp extends StatelessWidget {
+class MyApp extends NeumorphicApp {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -13,9 +20,11 @@ class MyApp extends StatelessWidget {
       title: 'Your Home',
       themeMode: ThemeMode.light,
       theme: NeumorphicThemeData(
-        baseColor: Color(0xFFFFFFFF),
+        baseColor: ConstColor.backgroundLight,
         lightSource: LightSource.topLeft,
         depth: 10,
+        accentColor: ConstColor.heightLight,
+        variantColor: ConstColor.heightLight2,
       ),
       darkTheme: NeumorphicThemeData(
         baseColor: Color(0xFF3E3E3E),

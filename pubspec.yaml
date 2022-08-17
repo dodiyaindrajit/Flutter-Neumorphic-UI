@@ -11,8 +11,20 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  flutter_neumorphic: ^3.2.0
+  #-------Structure------
+  flutter_bloc: ^8.1.1
+  bloc: ^8.1.0
+
+  #-------Service Provider------
+  #google Fonts
   google_fonts: ^3.0.1
+
+  #----------UI----------
+  #Newmorphic Flutter Package for Newmorphic Design
+  flutter_neumorphic: ^3.2.0
+  #Chart and analysis ui
+  syncfusion_flutter_gauges: ^20.2.43
+  mouse_parallax: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -21,36 +33,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
 
 flutter:
-
   uses-material-design: true
 
-  
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  assets:
+    - assets/icons/
