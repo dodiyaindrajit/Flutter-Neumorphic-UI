@@ -1,16 +1,27 @@
-# myhomecontroller
+# Home Controller
 
-A new Flutter project.
+Home Controller Is Made with ❤ in flutter using neumorphic ui.
 
-## Getting Started
+Images : 
 
-This project is a starting point for a Flutter application.
+Side Menu | Home Screen |
+:-------------------------:|:-------------------------:
+![Home Page Img1](https://user-images.githubusercontent.com/8991251/185925819-993c1f89-f578-4d3e-a175-9ec37bb42f7d.png) | ![Home Page Img2](https://user-images.githubusercontent.com/8991251/185925839-b6faaf85-f74e-4f56-9354-a0993de0c95d.png)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Videos: 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Side Menu | Home Screen |
+:-------------------------:|:-------------------------:
+<video src='https://user-images.githubusercontent.com/8991251/185925930-67a4b786-e159-4573-968c-8391406cf120.mov' /> | <video src='https://user-images.githubusercontent.com/8991251/185926304-d20c8e49-0c81-47f0-8ee4-23c99791b90b.mov' /> 
+
+
+
+
+
+
+
+
+
+
+
