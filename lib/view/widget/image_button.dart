@@ -10,14 +10,16 @@ class ImageButton extends StatelessWidget {
       required this.imageName,
       this.buttonName = "Name",
       this.color = ConstColor.heightLight,
-      this.isTitle = true})
+      this.isTitle = true,
+      this.isDepthPositive = false})
       : super(key: key);
 
-  final Function? onTap;
-  final String? imageName;
+  final Function onTap;
+  final String imageName;
   final String buttonName;
   final bool isTitle;
   final Color color;
+  final bool isDepthPositive;
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +28,23 @@ class ImageButton extends StatelessWidget {
       provideHapticFeedback: true,
       pressed: true,
       minDistance: -3,
-      onPressed: () => onTap,
+      onPressed: () => onTap(),
       style: NeumorphicStyle(
           shape: NeumorphicShape.convex,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-          depth: 5,
+          depth: isDepthPositive ? -3 : 3,
+          intensity: 0.9,
           lightSource: LightSource.topLeft,
+          shadowLightColor: Colors.white.withOpacity(0.8),
           color: color),
-      margin: EdgeInsets.symmetric(vertical: ConstSize.defaultPadding * 0.8),
-      padding: EdgeInsets.all(ConstSize.defaultPadding * 0.5),
+      margin:
+          const EdgeInsets.symmetric(vertical: ConstSize.defaultPadding * 0.8),
+      padding: const EdgeInsets.all(ConstSize.defaultPadding * 0.5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Image.asset(imageName!, height: 45, width: 45, fit: BoxFit.contain),
-          if (isTitle) SizedBox(height: ConstSize.defaultPadding / 2),
+          Image.asset(imageName, height: 45, width: 45, fit: BoxFit.contain),
+          if (isTitle) const SizedBox(height: ConstSize.defaultPadding / 2),
           if (isTitle) Text(buttonName, style: ConstTextStyle.mediumDark),
         ],
       ),

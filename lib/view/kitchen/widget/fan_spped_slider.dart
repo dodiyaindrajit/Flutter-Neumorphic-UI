@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:myhomecontroller/constant/color.dart';
 import 'package:myhomecontroller/constant/size.dart';
@@ -24,7 +23,7 @@ class _FanSpeedState extends State<FanSpeed> {
           "Fan Speed",
           style: ConstTextStyle.mediumDark,
         ),
-        SizedBox(height: ConstSize.defaultPadding * 0.5),
+        const SizedBox(height: ConstSize.defaultPadding * 0.5),
         NeumorphicSlider(
           height: 15,
           min: 5,
@@ -52,7 +51,7 @@ class _FanSpeedState extends State<FanSpeed> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  for (var i in [1, 2, 3])
+                  for (var _ in [1, 2, 3])
                     SizedBox(
                       height: 10,
                       width: 4,

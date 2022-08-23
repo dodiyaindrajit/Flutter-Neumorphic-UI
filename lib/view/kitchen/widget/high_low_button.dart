@@ -3,7 +3,8 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:myhomecontroller/constant/color.dart';
 import 'package:myhomecontroller/constant/size.dart';
 import 'package:myhomecontroller/constant/text_style.dart';
-import 'package:myhomecontroller/cubit/counter_cubit.dart';
+import 'package:myhomecontroller/cubit/kitchen_cubit.dart';
+import 'package:myhomecontroller/model/kitchen.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class HighLowButton extends StatelessWidget {
@@ -26,13 +27,13 @@ class HighLowButton extends StatelessWidget {
                   depth: 10,
                   lightSource: LightSource.topLeft,
                   color: ConstColor.background),
-              padding: EdgeInsets.all(ConstSize.defaultPadding),
+              padding: const EdgeInsets.all(ConstSize.defaultPadding),
               drawSurfaceAboveChild: false,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   circulerProcessWidget(
-                      context.watch<CounterCubit>().state.toDouble()),
+                      context.watch<KitchenCubit>().state.heatSpeed.toDouble()),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -41,34 +42,13 @@ class HighLowButton extends StatelessWidget {
                           provideHapticFeedback: true,
                           minDistance: -2,
                           onPressed: () {
-                            if (context.read<CounterCubit>().state.toDouble() >
-                                16) context.read<CounterCubit>().decrement();
-                          },
-                          style: NeumorphicStyle(
-                              shape: NeumorphicShape.convex,
-                              boxShape: NeumorphicBoxShape.roundRect(
-                                  BorderRadius.circular(40)),
-                              depth: 5,
-                              lightSource: LightSource.topLeft,
-                              shadowLightColor: Colors.grey,
-                              color: ConstColor.backgroundLight),
-                          margin: EdgeInsets.symmetric(
-                              vertical: ConstSize.defaultPadding * 0.6),
-                          padding:
-                              EdgeInsets.all(ConstSize.defaultPadding * 0.6),
-                          child: const Icon(
-                            Icons.remove,
-                            size: 30,
-                            color: ConstColor.darkGray,
-                          ),
-                        ),
-                        NeumorphicButton(
-                          provideHapticFeedback: true,
-                          minDistance: -2,
-                          onPressed: () {
-                            if (context.read<CounterCubit>().state.toDouble() <
-                                30) {
-                              context.read<CounterCubit>().increment();
+                            if (context
+                                    .read<KitchenCubit>()
+                                    .state
+                                    .heatSpeed
+                                    .toDouble() >
+                                16) {
+                              context.read<KitchenCubit>().decreaseHeatSpeed();
                             }
                           },
                           style: NeumorphicStyle(
@@ -79,10 +59,41 @@ class HighLowButton extends StatelessWidget {
                               lightSource: LightSource.topLeft,
                               shadowLightColor: Colors.grey,
                               color: ConstColor.backgroundLight),
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                               vertical: ConstSize.defaultPadding * 0.6),
-                          padding:
-                              EdgeInsets.all(ConstSize.defaultPadding * 0.6),
+                          padding: const EdgeInsets.all(
+                              ConstSize.defaultPadding * 0.6),
+                          child: const Icon(
+                            Icons.remove,
+                            size: 30,
+                            color: ConstColor.darkGray,
+                          ),
+                        ),
+                        NeumorphicButton(
+                          provideHapticFeedback: true,
+                          minDistance: -2,
+                          onPressed: () {
+                            if (context
+                                    .read<KitchenCubit>()
+                                    .state
+                                    .heatSpeed
+                                    .toDouble() <
+                                30) {
+                              context.read<KitchenCubit>().increaseHeatSpeed();
+                            }
+                          },
+                          style: NeumorphicStyle(
+                              shape: NeumorphicShape.convex,
+                              boxShape: NeumorphicBoxShape.roundRect(
+                                  BorderRadius.circular(40)),
+                              depth: 5,
+                              lightSource: LightSource.topLeft,
+                              shadowLightColor: Colors.grey,
+                              color: ConstColor.backgroundLight),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: ConstSize.defaultPadding * 0.6),
+                          padding: const EdgeInsets.all(
+                              ConstSize.defaultPadding * 0.6),
                           child: const Icon(
                             Icons.add,
                             size: 30,
@@ -139,6 +150,7 @@ class HighLowButton extends StatelessWidget {
                   provideHapticFeedback: true,
                   minDistance: -2,
                   onPressed: () {
+                    // ignore: avoid_print
                     print("Power Key Pressed.");
                   },
                   style: NeumorphicStyle(
@@ -149,17 +161,17 @@ class HighLowButton extends StatelessWidget {
                       intensity: 2,
                       shadowLightColor: Colors.grey,
                       color: ConstColor.backgroundLight),
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                       vertical: ConstSize.defaultPadding * 0.1),
-                  padding: EdgeInsets.all(ConstSize.defaultPadding * 1),
+                  padding: const EdgeInsets.all(ConstSize.defaultPadding * 1),
                   child: Container(
                     alignment: Alignment.center,
                     width: 70,
                     height: 70,
-                    child: BlocBuilder<CounterCubit, int>(
+                    child: BlocBuilder<KitchenCubit, Kitchen>(
                       builder: (context, state) {
                         return Text(
-                          " $state°",
+                          " ${state.heatSpeed}°",
                           style: ConstTextStyle.largeDark.copyWith(
                             fontSize: 33,
                           ),

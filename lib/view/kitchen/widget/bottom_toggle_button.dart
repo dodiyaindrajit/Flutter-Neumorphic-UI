@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:myhomecontroller/constant/color.dart';
 import 'package:myhomecontroller/constant/size.dart';
@@ -103,7 +102,7 @@ class _BottomToggleButtonState extends State<BottomToggleButton> {
                 ],
               ),
             ),
-            SizedBox(height: ConstSize.defaultPadding * 0.1)
+            const SizedBox(height: ConstSize.defaultPadding * 0.1)
           ],
         ),
       ),

@@ -7,7 +7,6 @@ import 'package:myhomecontroller/view/kitchen/widget/bottom_toggle_button.dart';
 import 'package:myhomecontroller/view/kitchen/widget/fan_spped_slider.dart';
 import 'package:myhomecontroller/view/kitchen/widget/heat_fan_button.dart';
 import 'package:myhomecontroller/view/kitchen/widget/high_low_button.dart';
-import 'package:myhomecontroller/view/widget/custom_appbar.dart';
 
 class KitchenScreen extends StatelessWidget {
   const KitchenScreen({
@@ -19,20 +18,19 @@ class KitchenScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        //Main Content (Title - Buttons - Slider)
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: ConstSize.defaultPadding * 0.1),
+          padding: const EdgeInsets.only(left: ConstSize.defaultPadding * 0.1),
           child: ClipRect(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: ConstSize.defaultPadding * 0.9),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: ConstSize.defaultPadding * 0.9),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(height: ConstSize.defaultPadding * 2.5),
-                  //Appbar - Home, Title, Menu
-                  const CustomAppBar(),
                   //Section Title
-                  SizedBox(height: ConstSize.defaultPadding * 2),
+                  const SizedBox(height: ConstSize.defaultPadding),
                   Text(
                     "Kitchen",
                     style: ConstTextStyle.largeDark
@@ -42,17 +40,22 @@ class KitchenScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: ConstSize.defaultPadding * 1.5),
+                      const SizedBox(height: ConstSize.defaultPadding * 1.5),
                       Row(
                         children: [
-                          Text(
-                            "OVERVIEW",
-                            style: ConstTextStyle.largeDark.copyWith(
-                                fontSize: 18,
-                                letterSpacing: 2,
-                                color: Colors.grey),
+                          InkWell(
+                            child: Text(
+                              "OVERVIEW",
+                              style: ConstTextStyle.largeDark.copyWith(
+                                  fontSize: 18,
+                                  letterSpacing: 2,
+                                  color: Colors.grey),
+                            ),
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {},
                           ),
-                          SizedBox(width: ConstSize.defaultPadding),
+                          const SizedBox(width: ConstSize.defaultPadding),
                           Text(
                             "DETAILS",
                             style: ConstTextStyle.largeDark.copyWith(
@@ -62,7 +65,7 @@ class KitchenScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: ConstSize.defaultPadding),
+                      const SizedBox(height: ConstSize.defaultPadding),
                       //Cards,Buttons ( Air Conditioner, heat, Fan, HighLow Button)
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -71,17 +74,17 @@ class KitchenScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Column(
-                              children: [
-                                const AirConditionerCard(),
+                              children: const [
+                                AirConditionerCard(),
                                 HeatFanButton(),
                               ],
                             ),
-                            SizedBox(width: ConstSize.defaultPadding),
+                            const SizedBox(width: ConstSize.defaultPadding),
                             const HighLowButton(),
                           ],
                         ),
                       ),
-                      SizedBox(height: ConstSize.defaultPadding),
+                      const SizedBox(height: ConstSize.defaultPadding),
                       //Slider - Fan Speed
                       const FanSpeed(),
                     ],

@@ -1,90 +1,47 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:myhomecontroller/constant/color.dart';
-import 'package:myhomecontroller/constant/text_style.dart';
+import 'package:myhomecontroller/constant/size.dart';
+import 'package:myhomecontroller/cubit/home_cubit.dart';
 import 'package:myhomecontroller/view/kitchen/kitchen.dart';
-import 'package:myhomecontroller/view/widget/image_button.dart';
+import 'package:myhomecontroller/view/widget/custom_appbar.dart';
+import 'package:myhomecontroller/view/widget/side_menu.dart';
 
-import '../constant/size.dart';
-
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  late double sideMenuWidth;
-
   @override
   Widget build(BuildContext context) {
-    sideMenuWidth = MediaQuery.of(context).size.width * 0.24;
     return Scaffold(
       backgroundColor: ConstColor.background,
-      body: Row(
+      body: Stack(
         children: [
-          SideMenu(sideMenuWidth: sideMenuWidth),
-          const Expanded(child: KitchenScreen()),
-        ],
-      ),
-    );
-  }
-}
-
-class SideMenu extends StatelessWidget {
-  const SideMenu({
-    Key? key,
-    required this.sideMenuWidth,
-  }) : super(key: key);
-
-  final double sideMenuWidth;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      width: sideMenuWidth,
-      height: MediaQuery.of(context).size.height,
-      duration: const Duration(seconds: 1),
-      child: Neumorphic(
-        style: NeumorphicStyle(
-            shape: NeumorphicShape.flat,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(0)),
-            depth: 20,
-            lightSource: LightSource.left,
-            intensity: 0.9,
-            color: ConstColor.background),
-        padding: EdgeInsets.all(ConstSize.defaultPadding),
-        drawSurfaceAboveChild: false,
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              RotatedBox(
-                quarterTurns: -1,
-                child: Text(
-                  "4 Rooms",
-                  textAlign: TextAlign.center,
-                  style: ConstTextStyle.mediumDark,
+          SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                const CustomAppBar(),
+                Expanded(
+                  child: Row(
+                    children: [
+                      //Helper Container to maintain width when open side-menu
+                      AnimatedContainer(
+                          duration: ConstSize.animationTime,
+                          curve: Curves.ease,
+                          width: context
+                                  .watch<HomeCubit>()
+                                  .state
+                                  .isSideMenuActivate
+                              ? MediaQuery.of(context).size.width * 0.24
+                              : 0),
+                      const Expanded(child: KitchenScreen()),
+                    ],
+                  ),
                 ),
-              ),
-              for (ButtonData i in DummyData().roomButtonList)
-                ImageButton(
-                    imageName: i.imageName,
-                    onTap: i.onTap,
-                    color: i.color,
-                    isTitle: false),
-              RotatedBox(
-                quarterTurns: -1,
-                child: Text(
-                  "+ Add new room",
-                  textAlign: TextAlign.center,
-                  style: ConstTextStyle.mediumDark,
-                ),
-              )
-            ],
+              ],
+            ),
           ),
-        ),
+          const SideMenu(),
+        ],
       ),
     );
   }
@@ -94,14 +51,18 @@ class ButtonData {
   String imageName;
   Color color;
   Function onTap;
-  ButtonData(this.imageName, this.color, this.onTap);
+  bool isSelected;
+  ButtonData(this.imageName, this.color, this.onTap, this.isSelected);
 }
 
 class DummyData {
   List<ButtonData> roomButtonList = [
-    ButtonData("assets/icons/sofa.png", ConstColor.backgroundLight, () {}),
-    ButtonData("assets/icons/bed.png", ConstColor.backgroundLight, () {}),
-    ButtonData("assets/icons/kitchen.png", ConstColor.heightLight, () {}),
-    ButtonData("assets/icons/bath.png", ConstColor.backgroundLight, () {}),
+    ButtonData(
+        "assets/icons/sofa.png", ConstColor.backgroundLight, () {}, false),
+    ButtonData(
+        "assets/icons/bed.png", ConstColor.backgroundLight, () {}, false),
+    ButtonData("assets/icons/kitchen.png", ConstColor.heightLight, () {}, true),
+    ButtonData(
+        "assets/icons/bath.png", ConstColor.backgroundLight, () {}, false),
   ];
 }

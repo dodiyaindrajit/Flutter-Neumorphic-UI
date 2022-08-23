@@ -20,7 +20,7 @@ class AirConditionerCard extends StatelessWidget {
             depth: 10,
             lightSource: LightSource.topLeft,
             color: ConstColor.background),
-        padding: EdgeInsets.all(ConstSize.defaultPadding),
+        padding: const EdgeInsets.all(ConstSize.defaultPadding),
         drawSurfaceAboveChild: false,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,7 +31,7 @@ class AirConditionerCard extends StatelessWidget {
               children: [
                 Image.asset("assets/icons/ac.png",
                     height: 32, width: 37, fit: BoxFit.fill),
-                SizedBox(width: ConstSize.defaultPadding),
+                const SizedBox(width: ConstSize.defaultPadding),
                 Flexible(
                   child: Text(
                     "Air conditioner",
@@ -50,6 +50,7 @@ class AirConditionerCard extends StatelessWidget {
                   provideHapticFeedback: true,
                   minDistance: -2,
                   onPressed: () {
+                    // ignore: avoid_print
                     print("Power Key Pressed.");
                   },
                   style: NeumorphicStyle(
@@ -59,9 +60,9 @@ class AirConditionerCard extends StatelessWidget {
                       depth: 5,
                       lightSource: LightSource.topLeft,
                       color: ConstColor.heightLight),
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                       vertical: ConstSize.defaultPadding * 0.8),
-                  padding: EdgeInsets.all(ConstSize.defaultPadding * 0.8),
+                  padding: const EdgeInsets.all(ConstSize.defaultPadding * 0.8),
                   child: Image.asset("assets/icons/off.png",
                       color: Colors.white,
                       height: 30,
