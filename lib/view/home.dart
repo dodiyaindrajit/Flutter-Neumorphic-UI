@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:myhomecontroller/constant/color.dart';
 import 'package:myhomecontroller/constant/size.dart';
 import 'package:myhomecontroller/cubit/home_cubit.dart';
+import 'package:myhomecontroller/model/home.dart';
 import 'package:myhomecontroller/view/kitchen/kitchen.dart';
 import 'package:myhomecontroller/view/widget/custom_appbar.dart';
 import 'package:myhomecontroller/view/widget/side_menu.dart';
@@ -48,21 +49,22 @@ class Home extends StatelessWidget {
 }
 
 class ButtonData {
+  SideMenuNames name;
   String imageName;
   Color color;
   Function onTap;
   bool isSelected;
-  ButtonData(this.imageName, this.color, this.onTap, this.isSelected);
+  ButtonData(this.name,this.imageName, this.color, this.onTap, this.isSelected);
 }
 
 class DummyData {
   List<ButtonData> roomButtonList = [
-    ButtonData(
+    ButtonData(SideMenuNames.sofa,
         "assets/icons/sofa.png", ConstColor.backgroundLight, () {}, false),
-    ButtonData(
+    ButtonData(SideMenuNames.bed,
         "assets/icons/bed.png", ConstColor.backgroundLight, () {}, false),
-    ButtonData("assets/icons/kitchen.png", ConstColor.heightLight, () {}, true),
-    ButtonData(
+    ButtonData(SideMenuNames.kitchen,"assets/icons/kitchen.png", ConstColor.heightLight, () {}, true),
+    ButtonData(SideMenuNames.bath,
         "assets/icons/bath.png", ConstColor.backgroundLight, () {}, false),
   ];
 }

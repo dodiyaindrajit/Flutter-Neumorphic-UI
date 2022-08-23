@@ -14,6 +14,9 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String buttonName =
+        context.watch<HomeCubit>().state.sideMenuNames.toString();
+
     return AnimatedPositioned(
       left: context.watch<HomeCubit>().state.isSideMenuActivate
           ? 0
@@ -34,41 +37,42 @@ class SideMenu extends StatelessWidget {
           padding: const EdgeInsets.all(ConstSize.defaultPadding),
           drawSurfaceAboveChild: false,
           child: SafeArea(
-            child: Visibility(
-              // visible: context.read<HomeCubit>().state.isSideMenuActivate,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  RotatedBox(
-                    quarterTurns: -1,
-                    child: Text(
-                      "4 Rooms",
-                      textAlign: TextAlign.center,
-                      style: ConstTextStyle.mediumDark,
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                RotatedBox(
+                  quarterTurns: -1,
+                  child: Text(
+                    "4 Rooms",
+                    textAlign: TextAlign.center,
+                    style: ConstTextStyle.mediumDark,
                   ),
-                  for (ButtonData i in DummyData().roomButtonList)
-                    ImageButton(
-                      imageName: i.imageName,
-                      onTap: () {
-                        context.read<HomeCubit>().activateSideMenu();
-                        i.onTap();
-                      },
-                      color: i.color,
-                      isTitle: false,
-                      isDepthPositive: i.isSelected,
-                    ),
-                  RotatedBox(
-                    quarterTurns: -1,
-                    child: Text(
-                      "+ Add new room",
-                      textAlign: TextAlign.center,
-                      style: ConstTextStyle.mediumDark,
-                    ),
-                  )
-                ],
-              ),
+                ),
+                for (ButtonData i in DummyData().roomButtonList)
+                  ImageButton(
+                    buttonName: i.name.toString(),
+                    imageName: i.imageName,
+                    onTap: () {
+                      context.read<HomeCubit>().changeSideMenu(i.name);
+                      context.read<HomeCubit>().activateSideMenu();
+                      i.onTap();
+                    },
+                    color: buttonName == i.name.toString()
+                        ? ConstColor.heightLight
+                        : ConstColor.backgroundLight,
+                    isTitle: false,
+                    isDepthPositive: buttonName == i.name.toString(),
+                  ),
+                RotatedBox(
+                  quarterTurns: -1,
+                  child: Text(
+                    "+ Add new room",
+                    textAlign: TextAlign.center,
+                    style: ConstTextStyle.mediumDark,
+                  ),
+                )
+              ],
             ),
           ),
         ),
